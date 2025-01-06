@@ -1,0 +1,20 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZDD_C_CUSTOMER_TRAVEL_437 //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use action acceptClients;
+  use action rejectClients;
+  use action validateCustomerFormat;
+
+  use action Resume;
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+}

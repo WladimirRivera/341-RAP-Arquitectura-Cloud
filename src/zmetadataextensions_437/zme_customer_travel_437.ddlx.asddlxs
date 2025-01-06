@@ -1,0 +1,84 @@
+@Metadata.layer: #INDUSTRY
+@UI: { headerInfo: { typeName: 'Customer',
+                   typeNamePlural: 'Customers',
+                   title: { type: #STANDARD,
+                            value: 'CustomerId' } },
+     presentationVariant: [{ sortOrder: [{ by: 'CustomerId',
+                                          direction: #ASC }],
+                              visualizations: [{ type: #AS_LINEITEM }]
+                               }] }
+annotate entity ZDD_C_CUSTOMER_TRAVEL_437 with
+{
+  @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Customer_StdVH',
+                                                  element: 'LastName' }
+  //                                               , useForValidation: true
+                                                 }]
+  @UI: {lineItem: [{ position: 10,
+                   importance: #HIGH,
+                   label: 'Customer ID'},
+                   { type: #FOR_ACTION,
+                    dataAction: 'acceptClients',
+                    label: 'Accept Clients',
+                    position: 10},
+                    { type: #FOR_ACTION,
+                    dataAction: 'rejectClients',
+                    label: 'Reject Clients',
+                    position: 10}
+                   ],
+         selectionField: [{ position: 10 }],
+         identification: [{ position: 10  },
+                          { type: #FOR_ACTION,
+                            dataAction: 'acceptClients',
+                            label: 'Accept Clients',
+                            position: 10},
+                            { type: #FOR_ACTION,
+                            dataAction: 'rejectClients',
+                            label: 'Reject Clients',
+                            position: 10}],
+         textArrangement: #TEXT_FIRST }
+  @UI.facet: [{ id: 'CustomerDetails',
+  purpose: #STANDARD,
+  type: #IDENTIFICATION_REFERENCE, label: 'Customer Details', position: 10 }]
+  CustomerId;
+  @UI: {lineItem: [{ position: 20,
+                   importance: #HIGH,
+                   label: 'Customer Name'}],
+        identification: [{ position: 20  }]}
+  CustomerName;
+  @UI: {lineItem: [{ position: 30,
+                   importance: #MEDIUM,
+                   label: 'Customer Country'}],
+      identification: [{ position: 30  } ]}
+  CustomerCountry;
+  @UI: {lineItem: [{ position: 40,
+                   importance: #LOW,
+                   label: 'Description'}],
+      identification: [{ position: 40  } ]}
+  @UI.hidden: true
+  Description;
+  @UI: {lineItem: [{ position: 50,
+                 importance: #MEDIUM,
+                 label: 'Flight Date'}],
+    identification: [{ position: 50  } ]}
+  FlightDate;
+  @UI: {lineItem: [{ position: 51,
+                importance: #MEDIUM,
+                label: 'Flight price with taxes'}],
+   identification: [{ position: 51  } ]}
+  PriceWithTax;
+  @UI: {lineItem: [{ position: 60,
+                 importance: #LOW,
+                 label: 'Price'}],
+    identification: [{ position: 60  } ]}
+  Price;
+  @UI: {lineItem: [{ position: 70,
+               importance: #LOW,
+               label: 'Currency Code'}],
+  identification: [{ position: 70  } ]}
+  CurrencyCode;
+  @UI: {lineItem: [{ position: 80,
+             importance: #LOW,
+             label: 'Overal Status'}],
+  identification: [{ position: 80  } ]}
+  OverallStatus;
+}

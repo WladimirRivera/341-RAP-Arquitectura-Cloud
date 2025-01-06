@@ -1,0 +1,50 @@
+managed implementation in class zbp_dd_r_customer_travel_437 unique;
+strict ( 2 );
+with draft;
+define behavior for ZDD_R_CUSTOMER_TRAVEL_437 alias CustomerTravel
+persistent table zcustomers_437
+draft table zcustomers_d_437
+lock master
+total etag LastChangedAt
+etag master LocalLastChangedAt
+authorization master ( global, instance )
+{
+  create;
+  update;
+  delete;
+  field ( numbering : managed, readonly ) CustomerUuid;
+  field ( mandatory ) CustomerId;
+  field ( readonly ) Description, FlightDate, OverallStatus;
+  field ( features : instance ) Price;
+  action ( features : instance, authorization : update ) acceptClients
+    parameter ZDD_AE_CUSTOMER_TRAVEL_437 result [1] $self;
+  action ( features : instance, authorization : update ) rejectClients result [1] $self;
+  validation validateCustomer on save { create; field CustomerId; }
+  internal action updateFlightDate;
+  determination setDescription on save { create; }
+  determination setStatus on modify { create; field OverallStatus, FlightDate; }
+
+  determine action validateCustomerFormat { validation validateCustomer; }
+  side effects
+  {
+    field CustomerId affects field Description;
+    determine action validateCustomerFormat executed on field CustomerId affects messages;
+  }
+  draft action Resume;
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft determine action Prepare
+  {
+    validation validateCustomer;
+  }
+  mapping for zcustomers_437
+    {
+      CustomerId    = customer_id;
+      Description   = description;
+      FlightDate    = flight_date;
+      Price         = price;
+      CurrencyCode  = currency_code;
+      OverallStatus = overall_status;
+    }
+}
